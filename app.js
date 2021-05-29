@@ -95,6 +95,12 @@ function getRepo(resp, username) {
   fetch("https://api.github.com/graphql", requestOptions)
     .then((response) => response.json())
     .then((result) => {
+      if(result.errors) {
+        spinner.classList.toggle('hide');
+        form.classList.toggle('hide');
+        document.getElementById("error").classList.remove('hide')
+        return
+      }
       // console.log(result);
       avatarImg = result.data.user.avatarUrl;
       document.getElementById("small-avatar-img").src = avatarImg;
