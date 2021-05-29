@@ -14,6 +14,11 @@ function dropdownFn() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
+//get current year;
+const date = new Date();
+const currentYear = date.getFullYear();
+document.getElementById("current-year").innerHTML = currentYear
+
 window.onscroll = function () {
   const tabHeader = document.querySelector(".tab-header");
   const sticky = tabHeader.offsetTop;
@@ -67,7 +72,7 @@ function getRepo(resp, username) {
   const query = `query($number_of_repos:Int!) {
       user(login: ${JSON.stringify(username)}) {
         name, bio, login, avatarUrl(size:260)
-         repositories(last: $number_of_repos, orderBy: {field: UPDATED_AT, direction: DESC}) {
+         repositories(first: $number_of_repos, orderBy: {field: UPDATED_AT, direction: DESC}) {
            nodes {
              name,updatedAt,stargazerCount,forkCount,description ,shortDescriptionHTML, primaryLanguage  {
                  name , color, id 
